@@ -1,71 +1,68 @@
 <div class="content-wrapper">
-  
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Dashboard</h1>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="content">
-    <div class="container-fluid">
+  <section class="content-header">
+    <section class="content">
       <div class="row">
-        <div class="col-lg-3 col-12">
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3><?php echo count($calon)." Pasang"; ?></h3>
-              <p>Calon</p>
+        <div class="col-lg-6 col-sm-12">
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Data Diagram Hasil Pemilihan Ketua MPK</h3>
             </div>
-            <div class="icon">
-              <i class="fa fa-user-friends"></i>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div id="ketua" style="height: 370px; width: 100%"></div>
             </div>
-            <a href="<?= base_url();?>index.php/admin/data_calon" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
-        <div class="col-lg-3 col-12">
-          <div class="small-box bg-info">
-            <div class="inner">
-              <h3><?php echo count($user)." Data"; ?></h3>
-              <p>Pemilih</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-            <a href="<?= base_url()?>index.php/admin/data_pemilih" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+        <div class="col-lg-6 col-sm-12">
 
-        <div class="col-lg-3 col-12">
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3><?php echo count($feedback)." Data"; ?></h3>
-              <p>Feedback</p>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Data Diagram Hasil Pemilihan Wakil MPK</h3>
             </div>
-            <div class="icon">
-              <i class="far fa-star"></i>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div id="wakil" style="height: 370px; width: 100%"></div>
             </div>
-            <a href="<?= base_url()?>index.php/admin/penilaian" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-12">
-          <div class="small-box bg-primary">
-            <div class="inner">
-              <h3>2 Diagram</h3>
-              <p>Hasil Sementara</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-chart-pie"></i>
-            </div>
-            <a href="<?= base_url()?>index.php/admin/bar_diagram" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
-
-  </div>
+    </section>
   </section>
 </div>
+
+<script src="<?= base_url() ?>public/admin/morris/css/canvasjs.min.js"></script>
+<script>
+window.onload = function() {
+var chart = new CanvasJS.Chart("ketua", {
+  animationEnabled: true,
+  title: {
+    text: "Data Ketua"
+  },
+  data: [{
+    type: "bar",
+    yValueFormatString: "#,##0 Pemilih",
+    indexLabel: "({y})",
+    dataPoints: <?php echo $ketua ?>
+  }]
+});
+chart.render();
+
+var chart2 = new CanvasJS.Chart("wakil", {
+  animationEnabled: true,
+  title: {
+    text: "Data Wakil Ketua"
+  },
+  data: [{
+    type: "bar",
+    yValueFormatString: "#,##0 Pemilih",
+    indexLabel: "({y})",
+    dataPoints: <?php echo $wakil ?>
+  }]
+});
+chart2.render();
+ 
+}
+</script>
+
